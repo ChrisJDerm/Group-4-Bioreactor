@@ -1,4 +1,5 @@
 #include <lib/PID.h>
+#include <Arduino.h>
 
 PID::PID(){
     kP = 0;
@@ -16,8 +17,8 @@ double PID::loop(double setpoint, double curVal, double prevTime, double currTim
     int error = setpoint - curVal;
 
     double pEffort = kP * error;
-    double iEffort = kI * 0; // derivative of error;
-    double dEffort = kD * 0; // itegral of error;
+    double iEffort = constrain(iEffort + kI * error * (currTime - prevTime), 0, 5);
+    double dEffort = kD * (error / (currTime - prevTime));
 
     return pEffort + iEffort + dEffort;
 }

@@ -14,6 +14,10 @@ class PID {
     double kI;
     double kD;
 
+    double pEffort;
+    double iEffort;
+    double dEffort;
+
     double prevVal;
     double prevPrevVal;
 
