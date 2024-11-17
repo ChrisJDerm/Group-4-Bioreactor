@@ -5,8 +5,11 @@ class Subsystem {
 
     Subsystem();
 
+    PID* getController(){
+        return &controller;
+    }
 
-    private:
+    protected:
     double setpoint;
     double currVal;
 
