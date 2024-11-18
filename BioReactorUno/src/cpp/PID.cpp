@@ -16,9 +16,9 @@ PID::PID(double kP, double kI, double kD){
 double PID::loop(double setpoint, double currVal, double prevTime, double currTime){
     int error = setpoint - currVal;
 
-    double pEffort = kP * error;
-    double iEffort = constrain(iEffort + kI * error * (currTime - prevTime), 0, 5);
-    double dEffort = kD * (error / (currTime - prevTime));
+    pEffort = kP * error;
+    iEffort = constrain(iEffort + kI * error * (currTime - prevTime), 0, 5);
+    dEffort = kD * (error / (currTime - prevTime));
 
     return constrain(pEffort + iEffort + dEffort, 0, 5);
 }

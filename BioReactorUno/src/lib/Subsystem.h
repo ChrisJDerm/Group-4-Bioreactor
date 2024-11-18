@@ -3,7 +3,11 @@
 
 class Subsystem {
 
+    public:
+
     Subsystem();
+
+    Subsystem(float kP, float kI, float kD);
 
     PID* getController(){
         return &controller;

@@ -9,15 +9,13 @@ class PID {
 
     double loop(double setpoint, double currVal, double prevTime, double currTime);
 
-    private:
-
     double kP;
     double kI;
     double kD;
 
-    double pEffort;
-    double iEffort;
-    double dEffort;
+    double pEffort = 0;
+    double iEffort = 0;
+    double dEffort = 0;
 
     double prevVal;
     double prevPrevVal;

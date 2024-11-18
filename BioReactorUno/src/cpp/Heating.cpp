@@ -1,7 +1,8 @@
 #include <lib/Heating.h>
 #include <Arduino.h>
 
-void Heating::setup(int inPin, int outPin){
+Heating::Heating(int inPin, int outPin, double kP, double kI, double kD){
+    Subsystem(kP, kI, kD);
     pinMode(inPin, INPUT);
     pinMode(outPin, OUTPUT);
 }
