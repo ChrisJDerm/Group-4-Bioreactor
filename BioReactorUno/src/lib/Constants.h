@@ -12,3 +12,12 @@
 #define FREQ_TO_RPM (60 / NPULSES)
 #define RPM_MAX 1500 // Max RPM indicated by sensor (to mitigate any noise)
 #define T_MIN (6e7/RPM_MAX/NPULSES)
+
+// Heating Pins
+#define HEATER_PWM 9 //to be changed
+#define THERMISTOR 3 //to be changed
+
+// Heating PID
+#define heatKP 1.0 //to be changed
+#define heatKI 0.0 //to be changed
+#define heatKD 0.0 //to be changed

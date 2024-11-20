@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "lib/Stirring.h"
+#include "lib/Heating.h"
 #include "lib/Constants.h"
 #include "lib/Subsystem.h"
 
@@ -14,6 +15,7 @@ void freqCount();
 void setup() {
     Serial.begin(250000);
     Stirring stir = Stirring(MOTOR_PWM, FREQ_PIN, stirKP, stirKI, stirKD, &freqCount);
+    Heating heat = Heating(HEATER_PWM, THERMISTOR, heatKP, heatKI, heatKD);
     pinMode(10, OUTPUT);
 }
 
