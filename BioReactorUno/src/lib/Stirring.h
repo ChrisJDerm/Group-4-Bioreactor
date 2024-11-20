@@ -3,7 +3,7 @@
 
 class Stirring : Subsystem {
     public:
-    Stirring(int pwmPin, int encoderPin, double kP, double kI, double kD, void (*IR)(void));
+    Stirring(int pwmPin, int encoderPin, double kP, double kI, double kD);
     void loop(double currTime, double prevTime, double frequency);
 
     private:
