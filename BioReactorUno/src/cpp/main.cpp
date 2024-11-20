@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "lib/Stirring.h"
+#include "lib/Heating.h"
 #include "lib/Constants.h"
 #include "lib/Subsystem.h"
 

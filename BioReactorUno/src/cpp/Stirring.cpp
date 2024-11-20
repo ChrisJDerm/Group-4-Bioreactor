@@ -11,7 +11,7 @@ Stirring::Stirring(int pwmPin, int encoderPin, double kP, double kI, double kD)
 }
 
 void Stirring::loop(double currTime, double prevTime, double frequency){
-    setPoint = 400; //to be changed
+    setPoint = 900; //to be changed
     currVal = frequency;
     double effort = controller.loop(setPoint, currVal, currTime, prevTime);
     if (effort < 0){

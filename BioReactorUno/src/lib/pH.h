@@ -1,10 +1,10 @@
 #pragma once
 #include <lib/Subsystem.h>
 
-class Heating : Subsystem {
+class pH : Subsystem {
     public:
-    Heating(int inPin, int outPin, double kP, double kI, double kD);
-    double getTemp();
+    pH(int inPin, int outPin, double kP, double kI, double kD);
+    double get_pH();
     void loop(double currTime, double prevTime);
 
     private:
