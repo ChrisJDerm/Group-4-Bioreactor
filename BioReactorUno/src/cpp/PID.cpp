@@ -13,12 +13,28 @@ PID::PID(double kP, double kI, double kD){
     this->kD = kD;
 }
 
-double PID::loop(double setpoint, double currVal, double prevTime, double currTime){
-    int error = setpoint - currVal;
+double PID::loop(double setpoint, double currVal, double currTime, double prevTime){
+    double error = setpoint - currVal;
 
     pEffort = kP * error;
-    iEffort = constrain(iEffort + kI * error * (currTime - prevTime), 0, 5);
-    dEffort = kD * (error / (currTime - prevTime));
+    iEffort = constrain(iEffort + (kI * error * ((currTime - prevTime)/1000000)), 0, 10000000);
+    if (kD != 0)
+    {
+        float firstGrad = (prevPrevError - prePrevPrevError) / ((prevPrevTime - prevPrevPrevTime)/1000000);
+        float secondGrad = (prevError - prevPrevError) / ((prevTime - prevPrevTime)/1000000);
+        float thirdGrad = (error - prevError) / ((currTime - prevTime)/1000000);
+        dEffort = kD * ((firstGrad+secondGrad+thirdGrad)/3);
+    } else {
+        dEffort = 0;
+    }
+    
+    // Serial.println((error - prevError) / ((currTime - prevTime)/1000000));
+    prePrevPrevError = prevPrevError;
+    prevPrevError = prevError;
+    prevError = error;
 
-    return constrain(pEffort + iEffort + dEffort, 0, 5);
+    prevPrevPrevTime = prevPrevTime;
+    prevPrevPrevTime = prevTime;
+
+    return constrain(pEffort + iEffort + dEffort, -5, 5);
 }

@@ -27,7 +27,7 @@ void loop() {
 
     // Stirring
     speed = frequency*FREQ_TO_RPM; // measured speed in RPM (N pulses per revolution)
-    stir->loop(currTime, prevTime, frequency);
+    stir->loop(currTime, prevTime, speed);
     Serial.println(speed);
 }
 

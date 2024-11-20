@@ -17,8 +17,12 @@ class PID {
     double iEffort = 0;
     double dEffort = 0;
 
-    double prevVal;
-    double prevPrevVal;
+    double prevError = 0;
+    double prevPrevError = 0;
+    double prePrevPrevError = 0;
+
+    double prevPrevTime = 0;
+    double prevPrevPrevTime = 0;
 
     double integral;
 
