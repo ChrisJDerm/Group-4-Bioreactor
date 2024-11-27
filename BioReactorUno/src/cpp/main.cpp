@@ -8,8 +8,9 @@
 long currTime, prevTime, pulse, prevPulse, T1;
 int Vmotor, trig;
 float speed, meanSpeed, frequency, deltaT;
+int delayTime;
 
-int i;
+int flag = 0;
 
 Stirring* stir;
 Heating* heat;
@@ -27,7 +28,7 @@ void setup() {
 }
 
 void loop() {
-    i++;
+    delayTime++;
     prevTime = currTime;
     currTime = micros();
     deltaT = (currTime - prevTime);
@@ -35,13 +36,21 @@ void loop() {
     // Stirring
     speed = frequency*FREQ_TO_RPM; // measured speed in RPM (N pulses per revolution)
     stir->loop(currTime, prevTime, frequency);
-    //Serial.println(speed);
 
     // Heating
-    if (i > 800)
-    {   
+    int write = flag ? 0 : 120;
+    analogWrite(10, write);
+    if (delayTime > 800)
+    {
+        flag = !flag;
         heat->loop(currTime, prevTime);
-        i = 0;
+        delayTime = 0;
+
+        Serial.print(speed);
+        Serial.print(",");
+        Serial.print(0);
+        Serial.print(",");
+        Serial.println(1300);
     }
 }
 

@@ -4,9 +4,9 @@
 #define MOTOR_PWM 10
 #define FREQ_PIN 2
 
-// Stir PID (existing)
-#define stirKP 0.1
-#define stirKI 0.0
+// Stir PID
+#define stirKP 0.05
+#define stirKI 0.0003
 #define stirKD 0
 
 // Motor Constants (existing)
