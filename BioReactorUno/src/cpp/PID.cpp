@@ -17,24 +17,15 @@ double PID::loop(double setpoint, double currVal, double currTime, double prevTi
     double error = setpoint - currVal;
 
     pEffort = kP * error;
-    iEffort = constrain(iEffort + (kI * error * ((currTime - prevTime)/1000000)), 0, 10000000);
-    if (kD != 0)
-    {
-        float firstGrad = (prevPrevError - prePrevPrevError) / ((prevPrevTime - prevPrevPrevTime)/1000000);
-        float secondGrad = (prevError - prevPrevError) / ((prevTime - prevPrevTime)/1000000);
-        float thirdGrad = (error - prevError) / ((currTime - prevTime)/1000000);
-        dEffort = kD * ((firstGrad+secondGrad+thirdGrad)/3);
-    } else {
-        dEffort = 0;
-    }
-    
-    // Serial.println((error - prevError) / ((currTime - prevTime)/1000000));
-    prePrevPrevError = prevPrevError;
-    prevPrevError = prevError;
-    prevError = error;
 
-    prevPrevPrevTime = prevPrevTime;
-    prevPrevPrevTime = prevTime;
+    if (((prevError - setpoint) * (error)) < 0)
+    {
+        iEffort = 0;
+    }
+
+    iEffort = constrain(iEffort + (kI * error * ((currTime - prevTime)/1000000)), 0, 1300);
+    dEffort = kD * ((error-prevError)/(currTime-prevTime));
+    prevError = error;
 
     return constrain(pEffort + iEffort + dEffort, -5, 5);
 }

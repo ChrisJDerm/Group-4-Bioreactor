@@ -3,9 +3,9 @@
 #define FREQ_PIN 2
 
 // Stir PID
-#define stirKP 0.2
-#define stirKI 0.0008
-#define stirKD 0.0
+#define stirKP 0.05
+#define stirKI 0.0003
+#define stirKD 0
 
 // Motor Constants
 #define NPULSES 70.0 // Number of pulses per revolution

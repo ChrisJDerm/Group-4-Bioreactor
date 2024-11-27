@@ -8,6 +8,9 @@
 long currTime, prevTime, pulse, prevPulse, T1;
 int Vmotor, trig;
 float speed, meanSpeed, frequency, deltaT;
+int SerialTime;
+
+int flag = 0;
 
 Stirring* stir;
 
@@ -27,8 +30,21 @@ void loop() {
 
     // Stirring
     speed = frequency*FREQ_TO_RPM; // measured speed in RPM (N pulses per revolution)
-    stir->loop(currTime, prevTime, speed);
-    Serial.println(speed);
+    // stir->loop(currTime, prevTime, speed);
+    int write = flag ? 0 : 120;
+    analogWrite(10, write);
+    SerialTime++;
+    if (SerialTime > 800)
+    {
+        // Serial.println(speed);
+        // SerialTime = 0;
+        flag = !flag;
+    }
+    Serial.print(speed);
+    Serial.print(",");
+    Serial.print(0);
+    Serial.print(",");
+    Serial.println(1300);
 }
 
 void freqCount(void){
