@@ -13,12 +13,19 @@ PID::PID(double kP, double kI, double kD){
     this->kD = kD;
 }
 
-double PID::loop(double setpoint, double currVal, double prevTime, double currTime){
-    int error = setpoint - currVal;
+double PID::loop(double setpoint, double currVal, double currTime, double prevTime){
+    double error = setpoint - currVal;
 
     pEffort = kP * error;
-    iEffort = constrain(iEffort + kI * error * (currTime - prevTime), 0, 5);
-    dEffort = kD * (error / (currTime - prevTime));
 
-    return constrain(pEffort + iEffort + dEffort, 0, 5);
+    if (((prevError - setpoint) * (error)) < 0)
+    {
+        iEffort = 0;
+    }
+
+    iEffort = constrain(iEffort + (kI * error * ((currTime - prevTime)/1000000)), 0, 1300);
+    dEffort = kD * ((error-prevError)/(currTime-prevTime));
+    prevError = error;
+
+    return constrain(pEffort + iEffort + dEffort, -5, 5);
 }

@@ -2,7 +2,10 @@
 #include <Arduino.h>
 
 pH::pH(int inPin, int outPin, double kP, double kI, double kD){
-    Subsystem(kP, kI, kD);
+    this->controller.kP = kP;
+    this->controller.kI = kI;
+    this->controller.kD = kD;
+
     pinMode(inPin, INPUT);
     pinMode(outPin, OUTPUT);
 }

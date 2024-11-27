@@ -16,7 +16,6 @@ void Stirring::loop(double currTime, double prevTime, double frequency){
     double effort = controller.loop(setPoint, currVal, currTime, prevTime);
     if (effort < 0){
         analogWrite(outPin, 0);
-        Serial.println("Less than zero");
     }
     else {
         analogWrite(outPin, effort*(255/5));

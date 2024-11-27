@@ -18,8 +18,7 @@ class PID {
     double dEffort = 0;
 
     double prevVal;
-    double prevPrevVal;
-
+    double prevError;
     double integral;
 
     bool prevSign;

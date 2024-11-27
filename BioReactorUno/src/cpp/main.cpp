@@ -9,7 +9,10 @@ long currTime, prevTime, pulse, prevPulse, T1;
 int Vmotor, trig;
 float speed, meanSpeed, frequency, deltaT;
 
+int i;
+
 Stirring* stir;
+Heating* heat;
 
 // put function declarations here:
 void freqCount();
@@ -18,9 +21,13 @@ void setup() {
     Serial.begin(250000);
     stir = &Stirring(MOTOR_PWM, FREQ_PIN, stirKP, stirKI, stirKD);
     attachInterrupt(digitalPinToInterrupt(2), freqCount, CHANGE);
+
+    // heating
+    heat = new Heating(A0, HEATER_PWM, heatKP, heatKI, heatKD);
 }
 
 void loop() {
+    i++;
     prevTime = currTime;
     currTime = micros();
     deltaT = (currTime - prevTime);
@@ -28,7 +35,14 @@ void loop() {
     // Stirring
     speed = frequency*FREQ_TO_RPM; // measured speed in RPM (N pulses per revolution)
     stir->loop(currTime, prevTime, frequency);
-    Serial.println(speed);
+    //Serial.println(speed);
+
+    // Heating
+    if (i > 800)
+    {   
+        heat->loop(currTime, prevTime);
+        i = 0;
+    }
 }
 
 void freqCount(void){
