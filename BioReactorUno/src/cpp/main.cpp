@@ -24,7 +24,7 @@ void setup() {
     attachInterrupt(digitalPinToInterrupt(2), freqCount, CHANGE);
 
     // heating
-    heat = new Heating(A0, HEATER_PWM, heatKP, heatKI, heatKD);
+    heat = new Heating(1, HEATER_PWM, heatKP, heatKI, heatKD);
 }
 
 void loop() {
@@ -35,23 +35,22 @@ void loop() {
 
     // Stirring
     speed = frequency*FREQ_TO_RPM; // measured speed in RPM (N pulses per revolution)
-    stir->loop(currTime, prevTime, frequency);
 
-    // Heating
-    int write = flag ? 0 : 120;
-    analogWrite(10, write);
-    if (delayTime > 800)
+    // int setpoint = flag ? 500 : 1200;
+    int stirSetpoint = 400;
+    int heatSetpoint = 30;
+    stir->loop(currTime, prevTime, frequency, stirSetpoint);
+    if (delayTime > 3000)
     {
         flag = !flag;
-        heat->loop(currTime, prevTime);
+        heat->loop(currTime, prevTime, heatSetpoint);
         delayTime = 0;
-
-        Serial.print(speed);
-        Serial.print(",");
-        Serial.print(0);
-        Serial.print(",");
-        Serial.println(1300);
     }
+    // Serial.print(speed);
+    // Serial.print(",");
+    // Serial.print(0);
+    // Serial.print(",");
+    // Serial.println(1300);
 }
 
 void freqCount(void){

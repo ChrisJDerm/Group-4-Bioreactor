@@ -17,13 +17,17 @@ double PID::loop(double setpoint, double currVal, double currTime, double prevTi
     double error = setpoint - currVal;
 
     pEffort = kP * error;
+    
+    // Serial.print("Bool: ");
+    // Serial.println((prevError * error < 0));
 
-    if (((prevError - setpoint) * (error)) < 0)
+    if (prevError * error < 0)
     {
         iEffort = 0;
     }
 
     iEffort = constrain(iEffort + (kI * error * ((currTime - prevTime)/1000000)), 0, 1300);
+    // Serial.println(iEffort);
     dEffort = kD * ((error-prevError)/(currTime-prevTime));
     prevError = error;
 

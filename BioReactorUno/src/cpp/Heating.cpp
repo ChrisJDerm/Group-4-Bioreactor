@@ -8,8 +8,7 @@
 #define NOMINAL_RESISTANCE 10000.0
 #define B_COEFFICIENT 4220.0       
 
-Heating::Heating(int inPin, int outPin, double kP, double kI, double kD)
-    : Subsystem(kP, kI, kD) {
+Heating::Heating(int inPin, int outPin, double kP, double kI, double kD) : Subsystem(kP, kI, kD) {
     this->inPin = THERMISTOR_PIN;
     this->outPin = outPin;
     pinMode(inPin, INPUT);
@@ -22,7 +21,7 @@ double Heating::getTemp() {
     Serial.print("ADC: ");
     Serial.print(rawADC);
     
-    float resistance = SERIES_RESISTOR / ((1015.0 / rawADC) - 1);
+    float resistance = SERIES_RESISTOR / ((1040.0 / rawADC) - 1);
     
     float temp = resistance / NOMINAL_RESISTANCE;     
     temp = log(temp);                     
@@ -34,15 +33,9 @@ double Heating::getTemp() {
     return temp;
 }
 
-void Heating::loop(double currTime, double prevTime) {
-    setPoint = TARGET_TEMP; 
+void Heating::loop(double currTime, double prevTime, int setPoint) {
 
     currVal = getTemp();
-    
-    if (currVal == -999) {
-        analogWrite(outPin, 0); // Safety shutoff on sensor error
-        return;
-    }
     
     double effort = controller.loop(setPoint, currVal, currTime, prevTime);
     int pwmValue;
