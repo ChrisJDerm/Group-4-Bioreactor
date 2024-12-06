@@ -5,7 +5,7 @@ class Heating : Subsystem {
     public:
     Heating(int inPin, int outPin, double kP, double kI, double kD);
     double getTemp();
-    void loop(double currTime, double prevTime, int setPoint);
+    void loop(double currTime, double prevTime, double setPoint);
 
     private:
 

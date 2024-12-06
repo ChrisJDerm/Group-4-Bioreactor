@@ -35,21 +35,26 @@ void pH::loop(double currTime, double prevTime, double setPoint){
     voltageReadings[currentIndex] = voltage;
     currentIndex = (currentIndex + 1) % NUM_READINGS;
 
-    // float medianVoltage = calculateMedian(voltageReadings, NUM_READINGS);
-    float medianVoltage = voltage;
+    float medianVoltage = calculateMedian(voltageReadings, NUM_READINGS);
+    // float medianVoltage = voltage;
 
     float pHVal = 7.0 - ((neutralV - medianVoltage) / slope);
-
-    // Serial.println(pHVal);
+    currVal = pHVal;
 
     double effort = controller.loop(setPoint, pHVal, prevTime, currTime);
 
     int outPin = effort < 0 ? alkaPin : acidPin; 
 
-    effort = abs(effort) < 0.4 ? 0 : 255;
+    effort = abs(effort) < 0.35 ? 0 : 255;
 
     Serial.print(">pH:");
     Serial.println(pHVal);
+    Serial.print(">pHSet:");
+    Serial.println(setPoint);
+
+    if (abs(pHVal - (7.0 - ((neutralV - voltageReadings[(currentIndex+1) % 5]) / slope))) < 0.8)
+    {
+          analogWrite(outPin, effort);
+    }
     
-    analogWrite(outPin, effort);
 }

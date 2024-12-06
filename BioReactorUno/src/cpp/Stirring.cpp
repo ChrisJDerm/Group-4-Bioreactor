@@ -16,4 +16,7 @@ void Stirring::loop(double currTime, double prevTime, double frequency, int setp
 
     Serial.print(">Speed (RPM):");
     Serial.println(currVal);
+
+    Serial.print(">StirSet:");
+    Serial.println(setpoint);
 }

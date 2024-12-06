@@ -18,8 +18,6 @@ Heating::Heating(int inPin, int outPin, double kP, double kI, double kD) : Subsy
 
 double Heating::getTemp() {
     int rawADC = analogRead(inPin);
-    // Serial.print("ADC: ");
-    // Serial.print(rawADC);
     
     float resistance = SERIES_RESISTOR / ((1040.0 / rawADC) - 1);
     
@@ -33,7 +31,7 @@ double Heating::getTemp() {
     return temp;
 }
 
-void Heating::loop(double currTime, double prevTime, int setPoint) {
+void Heating::loop(double currTime, double prevTime, double setPoint) {
 
     currVal = getTemp();
     
@@ -51,13 +49,6 @@ void Heating::loop(double currTime, double prevTime, int setPoint) {
 
     Serial.print(">Temperature (C):");
     Serial.println(currVal);
-
-    // Serial.print(", Temperature: ");
-    // Serial.print(currVal);
-    // Serial.print("°C, Target: ");
-    // Serial.print(setPoint);
-    // Serial.print("°C, Effort: ");
-    // Serial.print(effort);
-    // Serial.print(", PWM: ");
-    // Serial.println(pwmValue);
+    Serial.print(">TempSet:");
+    Serial.println(setPoint);
 }

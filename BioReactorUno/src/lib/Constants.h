@@ -20,7 +20,7 @@
 // HEATING
 
 // Heating Pins
-#define HEATER_PWM 10
+#define HEATER_PWM 3
 #define THERMISTOR_PIN A1
 
 // Temperature Settings

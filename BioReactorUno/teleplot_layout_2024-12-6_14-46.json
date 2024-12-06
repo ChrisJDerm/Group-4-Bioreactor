@@ -1,0 +1,122 @@
+{
+   "widgets": [
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "Speed (RPM)",
+               "sourceNames": [
+                  "Speed (RPM)"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "Speed (RPM)",
+                  "_id": "data-serie-0",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "type": "number"
+            },
+            {
+               "name": "StirSet",
+               "sourceNames": [
+                  "StirSet"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "StirSet",
+                  "_id": "data-serie-6",
+                  "stroke": "rgba(52,152,219,1)",
+                  "fill": "rgba(52,152,219,0.1)"
+               },
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "pH",
+               "sourceNames": [
+                  "pH"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "pH",
+                  "_id": "data-serie-1",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "type": "number"
+            },
+            {
+               "name": "pHSet",
+               "sourceNames": [
+                  "pHSet"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "pHSet",
+                  "_id": "data-serie-7",
+                  "stroke": "rgba(52,152,219,1)",
+                  "fill": "rgba(52,152,219,0.1)"
+               },
+               "type": "number"
+            }
+         ]
+      },
+      {
+         "type": "chart",
+         "gridPos": {
+            "h": 6,
+            "w": 6,
+            "x": 0,
+            "y": 0
+         },
+         "series": [
+            {
+               "name": "Temperature (C)",
+               "sourceNames": [
+                  "Temperature (C)"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "Temperature (C)",
+                  "_id": "data-serie-2",
+                  "stroke": "rgba(231,76,60,1)",
+                  "fill": "rgba(231,76,60,0.1)"
+               },
+               "type": "number"
+            },
+            {
+               "name": "TempSet",
+               "sourceNames": [
+                  "TempSet"
+               ],
+               "formula": "",
+               "options": {
+                  "_serie": "TempSet",
+                  "_id": "data-serie-8",
+                  "stroke": "rgba(52,152,219,1)",
+                  "fill": "rgba(52,152,219,0.1)"
+               },
+               "type": "number"
+            }
+         ]
+      }
+   ],
+   "viewDuration": 15
+}
