@@ -1,7 +1,9 @@
 // Constants.h
 
+//STIRRING
+
 // Stir Pins (existing)
-#define MOTOR_PWM 9
+#define MOTOR_PWM 11
 #define FREQ_PIN 2
 
 // Stir PID
@@ -14,6 +16,8 @@
 #define FREQ_TO_RPM (60.0 / NPULSES)
 #define RPM_MAX 1350
 #define T_MIN (6e7/RPM_MAX/NPULSES)
+
+// HEATING
 
 // Heating Pins
 #define HEATER_PWM 10
@@ -28,3 +32,11 @@
 #define heatKP 1.3    // Proportional gain
 #define heatKI 0.0   // Integral gain
 #define heatKD 0.0    // Derivative gain
+
+
+// pH
+
+// Pins
+#define PH_IN_PIN A2
+
+#define NUM_READINGS 5

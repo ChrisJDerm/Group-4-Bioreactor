@@ -3,6 +3,9 @@
 #include "lib/Heating.h"
 #include "lib/Constants.h"
 #include "lib/Subsystem.h"
+#include "lib/pH.h"
+
+#include "AltSoftSerial.h"
 
 // Variables
 long currTime, prevTime, pulse, prevPulse, T1;
@@ -12,19 +15,24 @@ int delayTime;
 
 int flag = 0;
 
+// Software UART instance
+AltSoftSerial telemetry;
+
 Stirring* stir;
 Heating* heat;
+pH*  pHSys;
 
 // put function declarations here:
 void freqCount();
 
 void setup() {
-    Serial.begin(250000);
-    stir = &Stirring(MOTOR_PWM, FREQ_PIN, stirKP, stirKI, stirKD);
+    Serial.begin(230400);
+    telemetry.begin(115200);
     attachInterrupt(digitalPinToInterrupt(2), freqCount, CHANGE);
 
-    // heating
-    heat = new Heating(1, HEATER_PWM, heatKP, heatKI, heatKD);
+    stir = new Stirring(MOTOR_PWM, FREQ_PIN, stirKP, stirKI, stirKD);
+    heat = new Heating(THERMISTOR_PIN, HEATER_PWM, heatKP, heatKI, heatKD);
+    pHSys = new pH(A3, 5, 6, 1, 0, 0);
 }
 
 void loop() {
@@ -33,19 +41,28 @@ void loop() {
     currTime = micros();
     deltaT = (currTime - prevTime);
 
+
     // Stirring
     speed = frequency*FREQ_TO_RPM; // measured speed in RPM (N pulses per revolution)
 
-    // int setpoint = flag ? 500 : 1200;
-    int stirSetpoint = 400;
+    int stirSetpoint = flag ? 500 : 1000;
+    // int stirSetpoint = 400;
     int heatSetpoint = 30;
     stir->loop(currTime, prevTime, frequency, stirSetpoint);
-    if (delayTime > 3000)
+    pHSys->loop(currTime, prevTime, 7.0);
+    if (delayTime > 1000)
     {
         flag = !flag;
         heat->loop(currTime, prevTime, heatSetpoint);
         delayTime = 0;
     }
+
+    telemetry.print(speed);
+    telemetry.print(",");
+    telemetry.print(heat->getTemp());
+    telemetry.print(",");
+    telemetry.println(pHSys->getpH());
+
     // Serial.print(speed);
     // Serial.print(",");
     // Serial.print(0);

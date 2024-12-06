@@ -13,4 +13,7 @@ void Stirring::loop(double currTime, double prevTime, double frequency, int setp
     double effort = constrain(controller.loop(setpoint, currVal, currTime, prevTime), 0, 5);
    
     analogWrite(outPin, effort*(255/5));
+
+    Serial.print(">Speed (RPM):");
+    Serial.println(currVal);
 }

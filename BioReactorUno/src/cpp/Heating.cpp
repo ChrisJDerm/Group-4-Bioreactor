@@ -9,7 +9,7 @@
 #define B_COEFFICIENT 4220.0       
 
 Heating::Heating(int inPin, int outPin, double kP, double kI, double kD) : Subsystem(kP, kI, kD) {
-    this->inPin = THERMISTOR_PIN;
+    this->inPin = inPin;
     this->outPin = outPin;
     pinMode(inPin, INPUT);
     pinMode(outPin, OUTPUT);
@@ -18,8 +18,8 @@ Heating::Heating(int inPin, int outPin, double kP, double kI, double kD) : Subsy
 
 double Heating::getTemp() {
     int rawADC = analogRead(inPin);
-    Serial.print("ADC: ");
-    Serial.print(rawADC);
+    // Serial.print("ADC: ");
+    // Serial.print(rawADC);
     
     float resistance = SERIES_RESISTOR / ((1040.0 / rawADC) - 1);
     
@@ -49,13 +49,15 @@ void Heating::loop(double currTime, double prevTime, int setPoint) {
     
     analogWrite(outPin, pwmValue);
 
-    
-    Serial.print(", Temperature: ");
-    Serial.print(currVal);
-    Serial.print("°C, Target: ");
-    Serial.print(setPoint);
-    Serial.print("°C, Effort: ");
-    Serial.print(effort);
-    Serial.print(", PWM: ");
-    Serial.println(pwmValue);
+    Serial.print(">Temperature (C):");
+    Serial.println(currVal);
+
+    // Serial.print(", Temperature: ");
+    // Serial.print(currVal);
+    // Serial.print("°C, Target: ");
+    // Serial.print(setPoint);
+    // Serial.print("°C, Effort: ");
+    // Serial.print(effort);
+    // Serial.print(", PWM: ");
+    // Serial.println(pwmValue);
 }
